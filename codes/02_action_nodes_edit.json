@@ -1,0 +1,94 @@
+{
+  "name": "02_action_nodes_edit",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "34efb56e-8706-4a8b-8864-9d5ab39990de",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "url": "https://jsonplaceholder.typicode.com/todos/2",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        208,
+        0
+      ],
+      "id": "28d601f7-2ced-4c0f-87f6-6d184d284a7f",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "3c637fc4-f83f-49f5-ae86-0ef1090ce012",
+              "name": "유저아이디",
+              "value": "={{ $json.userId }}",
+              "type": "number"
+            },
+            {
+              "id": "463f324a-5cc2-4f93-a422-fe6cc2992c48",
+              "name": "제목",
+              "value": "={{ $json.title }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        416,
+        0
+      ],
+      "id": "0ecd8816-bf2e-40cb-a064-f94a7eddcd2b",
+      "name": "Edit Fields"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "bc3b2ce8-09bf-41e9-b857-b7997b586a0d",
+  "meta": {
+    "instanceId": "3703f6ea83a3ed95cfa721f1056bc6ff2970adb12041235b0f638592a5e0a452"
+  },
+  "id": "KRvlP0Q76ffr1cqz",
+  "tags": []
+}
