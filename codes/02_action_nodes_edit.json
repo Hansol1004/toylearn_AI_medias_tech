@@ -38,7 +38,7 @@
             },
             {
               "id": "463f324a-5cc2-4f93-a422-fe6cc2992c48",
-              "name": "제목",
+              "name": "타이틀",
               "value": "={{ $json.title }}",
               "type": "string"
             }
@@ -85,7 +85,7 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "bc3b2ce8-09bf-41e9-b857-b7997b586a0d",
+  "versionId": "1e95006b-1dd6-481b-89d0-e5d2f2fc4bac",
   "meta": {
     "instanceId": "3703f6ea83a3ed95cfa721f1056bc6ff2970adb12041235b0f638592a5e0a452"
   },
