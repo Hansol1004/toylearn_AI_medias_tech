@@ -59,7 +59,7 @@ https://docs.google.com/spreadsheets/d/1KZlqe6HvfufWMOejrlQbxfvGMaH_25KUrYMoUsJZ
 ## 서비스 카테고리별 성과 비교 분석
 
 |서비스 카테고리|	평균 NPS 점수|	평균 CSAT (5점 만점)	|주요 긍정 피드백|	주요 개선 요청|
-|전략 수립|	71.5	|4.75	구체적 ROI 제시, 빠른 PoC 검증	|프로젝트 기간 단축, 산업 특화 Use-case 추가|
+|전략 수립|	71.5	|4.75|	구체적 ROI 제시, 빠른 PoC 검증	|프로젝트 기간 단축, 산업 특화 Use-case 추가|
 |AI 거버넌스|	55.0	|4.40	|규제 대응, 보안 위협 대응	|국내 규제 변화 대응 속도, 중소기업용 Lite 버전|
 |IT 운영혁신|	56.5|	4.50	|ITSM 통합, SR 처리 시간 단축|	초기 데이터 구축 부담, AI Chatbot 정확도 개선|
 |지능형 ERP	|57.0	|4.50|	프로세스 자동화, 시간 단축|	SAP 버전 의존성, 초기 Fine-tuning 기간 장기화|
