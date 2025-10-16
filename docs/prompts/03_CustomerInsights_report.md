@@ -47,7 +47,7 @@ https://docs.google.com/spreadsheets/d/1KZlqe6HvfufWMOejrlQbxfvGMaH_25KUrYMoUsJZ
 
 ## 성장 잠재력의 재발견: AI 거버넌스와 산업별 솔루션의 시너지 분석
 
-## 고객 만족도 조사결과 분석 및 제안
+### 고객 만족도 조사결과 분석 및 제안
 종합 분석
 
 - 전반적으로 서비스 포트폴리오에 대한 고객 만족도는 높은 수준이며, 특히 산업별 특화 솔루션과 Co-Innovation Lab 운영과 같은 고부가가치 서비스에서 탁월한 성과를 보이고 있습니다.
@@ -56,7 +56,7 @@ https://docs.google.com/spreadsheets/d/1KZlqe6HvfufWMOejrlQbxfvGMaH_25KUrYMoUsJZ
 
 - CSAT(고객 만족도)는 모든 서비스에서 4.2점 이상으로 안정적인 평가를 받고 있으나, NPS와 편차가 있는 서비스는 개선의 여지가 있음을 시사합니다.
 
-## 주요 성공 요인 (Strengths)
+### 주요 성공 요인 (Strengths)
 
 
 1. 압도적인 산업 전문성: 제약/바이오(NPS 81), 에너지(NPS 83), 건설(NPS 78) 등 특정 산업 분야에서 독보적인 만족도를 기록했습니다. 이는 해당 산업의 규제, 프로세스, 데이터에 대한 깊은 이해를 바탕으로 실질적인 가치(R&D 비용 절감, 안전사고 감소, 발전 손실 절감 등)를 제공했기 때문입니다.
@@ -67,7 +67,7 @@ https://docs.google.com/spreadsheets/d/1KZlqe6HvfufWMOejrlQbxfvGMaH_25KUrYMoUsJZ
 
 3. 혁신적인 기술력: 'Co-Innovation Lab'과 '제약/바이오 AI 솔루션'은 각각 "최신 AI 트렌드 지속 공유", "신약 후보물질 발굴 속도 12배" 등의 피드백을 통해 기술 리더십을 입증했습니다.
 
-## 개선 필요 영역 (Weaknesses & Opportunities)
+### 개선 필요 영역 (Weaknesses & Opportunities)
 
 
 1. AI 거버넌스 서비스의 고도화: 'AI Rule & Policy Engine'은 NPS 43점으로 가장 낮은 평가를 받았습니다. 특히 "한국어 규정 해석 정확도"와 "복잡한 정책 처리 한계"는 시급히 해결해야 할 과제입니다. 신뢰할 수 있는 AI의 핵심인 거버넌스 엔진의 성능은 전체 서비스 포트폴리오의 경쟁력과 직결됩니다.
