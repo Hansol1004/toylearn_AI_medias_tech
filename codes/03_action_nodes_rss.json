@@ -1,0 +1,191 @@
+{
+  "name": "03_action_nodes_rss",
+  "nodes": [
+    {
+      "parameters": {
+        "chatId": "8228939151",
+        "text": "=n8n에서 보냅니다.\nxml 형식입니다.",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        288,
+        -128
+      ],
+      "id": "9ffb29ec-f6ef-4801-9d09-2728ac062ca4",
+      "name": "Send a text message",
+      "webhookId": "91795111-6c4f-4cc7-b0b7-db3504a8f057",
+      "credentials": {
+        "telegramApi": {
+          "id": "ZbvTjYlFm6euMpAN",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -320,
+        -128
+      ],
+      "id": "d7bb1d07-29df-4395-9788-b8413a73f7c4",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "url": "https://www.yna.co.kr/rss/industry.xml",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.2,
+      "position": [
+        -112,
+        64
+      ],
+      "id": "f28d9cbd-f987-4fbe-a6a2-d30931b5f8f6",
+      "name": "RSS Read"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        96,
+        64
+      ],
+      "id": "9810f42d-a622-4694-a286-8affe9c28cb4",
+      "name": "Limit"
+    },
+    {
+      "parameters": {
+        "chatId": "8228939151",
+        "text": "= n8n에서 보냅니다.\n\n제목 : {{ $json.title }}\n발행일 : {{ $json.pubDate }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        288,
+        64
+      ],
+      "id": "16843680-ec5d-4b3b-bf48-f0059cd6ac41",
+      "name": "Send a text message1",
+      "webhookId": "91795111-6c4f-4cc7-b0b7-db3504a8f057",
+      "credentials": {
+        "telegramApi": {
+          "id": "ZbvTjYlFm6euMpAN",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://www.yna.co.kr/rss/society.xml",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.2,
+      "position": [
+        -112,
+        -128
+      ],
+      "id": "6c93c470-d8b5-4215-9bd8-28aad8caecb6",
+      "name": "RSS Read1"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        96,
+        -128
+      ],
+      "id": "d3188109-cdfb-4b1d-9409-3c11bfcec4c2",
+      "name": "Limit1"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "RSS Read",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "RSS Read1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RSS Read": {
+      "main": [
+        [
+          {
+            "node": "Limit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Limit": {
+      "main": [
+        [
+          {
+            "node": "Send a text message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RSS Read1": {
+      "main": [
+        [
+          {
+            "node": "Limit1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Limit1": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "64682677-32d1-4327-9850-e49819e5115c",
+  "meta": {
+    "instanceId": "3703f6ea83a3ed95cfa721f1056bc6ff2970adb12041235b0f638592a5e0a452"
+  },
+  "id": "Wcw5M2cePEcjXVSm",
+  "tags": []
+}
