@@ -4,7 +4,7 @@
     {
       "parameters": {
         "chatId": "8228939151",
-        "text": "=n8n에서 보냅니다.\nxml 형식입니다.",
+        "text": "= n8n에서 보냅니다.\n\n제목 : {{ $json.title }}\n발행일 : {{ $json.pubDate }}",
         "additionalFields": {}
       },
       "type": "n8n-nodes-base.telegram",
@@ -182,7 +182,7 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "64682677-32d1-4327-9850-e49819e5115c",
+  "versionId": "59e5c918-c424-4d7e-94c9-250565677edd",
   "meta": {
     "instanceId": "3703f6ea83a3ed95cfa721f1056bc6ff2970adb12041235b0f638592a5e0a452"
   },
