@@ -62,9 +62,12 @@ https://docs.google.com/document/d/1sNeN3GRr044wWSfXkF7h12mQ9arGzgoEdD_eUM8YLOU/
 * **Action Item 2:** 피드백 확인 후, **10월 30일 (목)**에 2차 미팅을 통해 제작 착수 및 최종 스케줄을 확정하고자 합니다.
 
 ## 첨부 파일
-1.  더 어반 십 신제품 론칭 통합 미디어 전략 제안서 (v1.0)
-2.  [참고] 당사 광고 서비스 가격 정책 안내
-3.  [참조1] 10/23 킥오프 미팅 공식 회의록
+1.  **[더 어반 십] 신제품 론칭 통합 미디어 전략 최종 제안서 (Media Schedule 및 상세 예산안 포함)**
+    * (https://docs.google.com/document/d/120YaADgYtLf2V9Txtn6SDndy1tx8J2Q0oi1CwN5a8UU/edit?tab=t.0)
+2.  **[더 어반 십] 킥오프 미팅 회의록 (2025.10.23.)**
+    * (https://docs.google.com/document/d/1wWXJxOSIHSp9AsurrPVg-x4z-3VQhSrKiCSeEfgAys/edit?tab=t.0)
+3.  **[참고] 당사 표준 가격 정책 안내서**
+    * (https://docs.google.com/document/d/1KLU4oAAprirq1TxqV0p-rOtNxQEIuWCn5Mcd8sbXr8Y/edit?tab=t.0#heading=h.v65s6py9gn3b)
 
 ## 맺음말
 제안 내용 관련하여 궁금하신 점이나 조정이 필요한 부분이 있다면 언제든지 회신 주십시오. 귀사의 성공적인 시장 안착을 위해 최선을 다하겠습니다.
@@ -104,10 +107,12 @@ https://docs.google.com/document/d/1sNeN3GRr044wWSfXkF7h12mQ9arGzgoEdD_eUM8YLOU/
 * **Action Item 2:** 제안 승인 즉시, 유어미디어 측에서 **방송사 PSA 시간대 및 미디어 후원 가능성 타진**을 즉시 시작할 수 있도록 재단 측의 협조(관련 네트워크 공유 등)를 부탁드립니다.
 
 ## 첨부 파일
-1.  초록숲 재단 공익 캠페인 최종 제안서 (비용 효율화 및 PSA 전략 포함)
-2.  [참고] 당사 광고 서비스 가격 정책 안내
-3.  [참조2] 10/21 킥오프 미팅 공식 회의록
-
+1.  **[초록숲 재단] 공익 캠페인 비용 효율화 및 특별 지원 최종 제안서**
+    * (https://docs.google.com/document/d/11BX4r-y0wSPmoph00qYfYNOBZANjxyB9diIOPyepDTQ/edit?tab=t.0)
+2.  **[초록숲 재단] 킥오프 미팅 회의록 (2025.10.21.)**
+    * (https://docs.google.com/document/d/1sNeN3GRr044wWSfXkF7h12mQ9arGzgoEdD_eUM8YLOU/edit?tab=t.0)
+3.  **[참고] 당사 표준 가격 정책 안내서 (공익 우대 조건 관련)**
+    * (https://docs.google.com/document/d/1KLU4oAAprirq1TxqV0p-rOtNxQEIuWCn5Mcd8sbXr8Y/edit?tab=t.0#heading=h.v65s6py9gn3b)
 ## 맺음말
 제한된 예산으로도 충분히 시민들에게 감동을 주고 의미 있는 참여를 이끌어낼 수 있도록 철저히 준비하겠습니다. 검토 후 빠른 회신 부탁드립니다.
 
@@ -120,4 +125,4 @@ https://docs.google.com/document/d/1sNeN3GRr044wWSfXkF7h12mQ9arGzgoEdD_eUM8YLOU/
 
 
 ## 참고 회의록
-[https://github.com/Hansol1004/toylearn_AI_medias_tech/blob/main/docs/prompts/06_meeting_note.md](참고 회의록)
+[참고 회의록](https://github.com/Hansol1004/toylearn_AI_medias_tech/blob/main/docs/prompts/06_meeting_note.md)
