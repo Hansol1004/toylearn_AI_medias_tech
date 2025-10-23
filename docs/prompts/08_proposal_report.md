@@ -101,7 +101,7 @@ https://docs.google.com/document/d/1sNeN3GRr044wWSfXkF7h12mQ9arGzgoEdD_eUM8YLOU/
 1.  **[참조1] '스파클링 아이스티' 문의 문서**
     * (실제 링크: https://docs.google.com/document/d/120YaADgYtLf2V9Txtn6SDndy1tx8J2Q0oi1CwN5a8UU/edit?tab=t.0)
 2.  **[더 어반 십] 킥오프 미팅 회의록 (2025.10.23.)**
-    * (실제 링크: https://docs.google.com/document/d/1wWXJxOSIHSp9AsurrPVg-x4z-3VQhSrKiCSeEfgAys/edit?tab=t.0)
+    * (실제 링크: https://docs.google.com/document/d/1sNeN3GRr044wWSfXkF7h12mQ9arGzgoEdD_eUM8YLOU/edit?tab=t.0)
 3.  **[참고] 당사 표준 가격 정책 및 서비스 안내**
     * (실제 링크: https://docs.google.com/document/d/1KLU4oAAprirq1TxqV0p-rOtNxQEIuWCn5Mcd8sbXr8Y/edit?tab=t.0#heading=h.v65s6py9gn3b)
 4.  **세부 예산 집행 계획 및 견적서 (별첨)**
