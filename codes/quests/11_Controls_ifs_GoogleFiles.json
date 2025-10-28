@@ -24,7 +24,7 @@
       "type": "n8n-nodes-base.googleDriveTrigger",
       "typeVersion": 1,
       "position": [
-        -576,
+        -1040,
         -96
       ],
       "id": "e50f4f44-635e-4eb2-bdbe-515e06877e7e",
@@ -64,8 +64,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        -208,
-        -96
+        368,
+        -176
       ],
       "id": "ea3057c0-bb46-4a69-8cd8-ac866b0c8764",
       "name": "If"
@@ -88,10 +88,11 @@
         "columns": {
           "mappingMode": "defineBelow",
           "value": {
-            "파일명": "={{ $json.name }}",
-            "파일 종류": "={{ $json.mimeType }}",
-            "입력 날짜": "={{ $json.createdTime }}",
-            "파일 링크": "={{ $json.webViewLink }}"
+            "파일명": "={{ $('Google Drive Trigger').item.json.name }}",
+            "파일 종류": "={{ $('Google Drive Trigger').item.json.mimeType }}",
+            "파일 링크": "={{ $('Google Drive Trigger').item.json.webViewLink }}",
+            "입력 날짜": "={{ $('Google Drive Trigger').item.json.createdTime }}",
+            "한 줄 정리": "={{ $json.content.parts[0].text }}"
           },
           "matchingColumns": [
             "파일 링크"
@@ -105,7 +106,7 @@
               "display": true,
               "type": "string",
               "canBeUsedToMatch": true,
-              "removed": true
+              "removed": false
             },
             {
               "id": "입력 날짜",
@@ -114,7 +115,8 @@
               "defaultMatch": false,
               "display": true,
               "type": "string",
-              "canBeUsedToMatch": true
+              "canBeUsedToMatch": true,
+              "removed": false
             },
             {
               "id": "파일 종류",
@@ -153,8 +155,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        -384,
-        -96
+        144,
+        -176
       ],
       "id": "0a5eeb12-5b23-4d4c-8dff-73114d9c44fc",
       "name": "Append or update row in sheet",
@@ -189,7 +191,7 @@
       "type": "n8n-nodes-base.googleDrive",
       "typeVersion": 3,
       "position": [
-        0,
+        608,
         -192
       ],
       "id": "7b1ecfd0-82fa-4fec-8eed-9fac9a27f6cf",
@@ -225,8 +227,8 @@
       "type": "n8n-nodes-base.googleDrive",
       "typeVersion": 3,
       "position": [
-        0,
-        0
+        624,
+        16
       ],
       "id": "734e1dd8-4f64-456b-8001-c52a47fb93d7",
       "name": "Move file1",
@@ -236,6 +238,176 @@
           "name": "Google Drive account 3"
         }
       }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $json.id }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "시트1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_1Rri7kqf4rFnxZgN-q8DFup7hJMw5lL7ELe8Y74hRw/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -560,
+        -16
+      ],
+      "id": "4e9509e3-6615-4563-85de-57e6d39fc12c",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "E9T6HkpB2f232LwH",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=분석 내용 한 줄로 정리.\n\n{{ JSON.stringify($json) }}"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1,
+      "position": [
+        -160,
+        -16
+      ],
+      "id": "46fec073-3d57-4023-8ea1-13b341d5a92a",
+      "name": "Message a model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "u0KNzK2HMRfa50nM",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            {
+              "fieldToAggregate": "주요 긍정 피드백"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        -384,
+        -16
+      ],
+      "id": "9e6ea33b-85e2-46dd-afa9-6d4c22bbfb54",
+      "name": "Aggregate"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=분석 내용 한 줄로 정리.\n\n{{ JSON.stringify($json) }}"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1,
+      "position": [
+        -384,
+        -176
+      ],
+      "id": "26686aa9-6dd7-4acb-ab83-25a9dc582ba3",
+      "name": "Message a model1",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "u0KNzK2HMRfa50nM",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "documentURL": "={{ $json.id }}"
+      },
+      "type": "n8n-nodes-base.googleDocs",
+      "typeVersion": 2,
+      "position": [
+        -560,
+        -176
+      ],
+      "id": "a991af0a-2fe7-4388-8b92-747764226559",
+      "name": "Get a document",
+      "credentials": {
+        "googleDocsOAuth2Api": {
+          "id": "TW6CzLoz9IVcU0wq",
+          "name": "Google Docs account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "bb7b6153-1287-4404-97f4-2d67138a177c",
+              "leftValue": "={{ $json.mimeType }}",
+              "rightValue": "application/vnd.google-apps.document",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -816,
+        -96
+      ],
+      "id": "c2696774-6227-445f-8bc3-d1cb53eda6d1",
+      "name": "If1"
     }
   ],
   "pinData": {},
@@ -244,7 +416,7 @@
       "main": [
         [
           {
-            "node": "Append or update row in sheet",
+            "node": "If1",
             "type": "main",
             "index": 0
           }
@@ -279,13 +451,86 @@
           }
         ]
       ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get a document": {
+      "main": [
+        [
+          {
+            "node": "Message a model1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Get a document",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "Append or update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model1": {
+      "main": [
+        [
+          {
+            "node": "Append or update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": false,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "3fe33aea-7ecc-4741-8c15-062f9e2a6fd4",
+  "versionId": "2f1188ac-145d-42e6-85f7-7fc07df24a71",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "2f85a62d00aef46770cec5e29f788e0259909a3a8348903cf02176033958dca2"
