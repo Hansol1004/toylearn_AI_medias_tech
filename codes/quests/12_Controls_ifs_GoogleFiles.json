@@ -420,74 +420,6 @@
     },
     {
       "parameters": {
-        "resource": "spreadsheet",
-        "title": "={{ $json.name }}",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.googleSheets",
-      "typeVersion": 4.7,
-      "position": [
-        -480,
-        528
-      ],
-      "id": "520e4747-3637-4fe8-8eca-b9a9886811ce",
-      "name": "Create spreadsheet",
-      "credentials": {
-        "googleSheetsOAuth2Api": {
-          "id": "E9T6HkpB2f232LwH",
-          "name": "Google Sheets account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "assignments": {
-          "assignments": [
-            {
-              "id": "b70fba13-3c7f-47ee-9581-17410053d771",
-              "name": "name",
-              "value": "={{ $('Google Drive Trigger').item.json.name }}",
-              "type": "string"
-            },
-            {
-              "id": "a3ea7bc8-f81f-46f9-ade1-18c4e1132a34",
-              "name": "mimeType",
-              "value": "={{ $('Google Drive Trigger').item.json.mimeType }}",
-              "type": "string"
-            },
-            {
-              "id": "ad7cbcc3-1c6e-410a-919b-170fc1a22ffb",
-              "name": "webViewLink",
-              "value": "={{ $('Google Drive Trigger').item.json.webViewLink }}",
-              "type": "string"
-            },
-            {
-              "id": "d015792d-7e1f-4619-ac0d-a95052657b99",
-              "name": "createdTime",
-              "value": "={{ $('Google Drive Trigger').item.json.createdTime }}",
-              "type": "string"
-            },
-            {
-              "id": "be77e62f-faa5-45b3-b27b-13841b048cb9",
-              "name": "한줄평",
-              "value": "해당 항목은 내용이 없습니다.",
-              "type": "string"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
-      "position": [
-        -336,
-        528
-      ],
-      "id": "b2b7849c-63f3-4df1-870c-edef14c0cd44",
-      "name": "Edit Fields"
-    },
-    {
-      "parameters": {
         "assignments": {
           "assignments": [
             {
@@ -668,7 +600,7 @@
         "columns": {
           "mappingMode": "defineBelow",
           "value": {
-            "한 줄 정리": "={{ $json['한줄평'] }}",
+            "한 줄 정리": "={{ $json.content.parts[0].text }}",
             "파일 링크": "={{ $('Google Drive Trigger').item.json.webViewLink }}",
             "파일명": "={{ $('Google Drive Trigger').item.json.name }}",
             "파일 종류": "={{ $('Google Drive Trigger').item.json.mimeType }}",
@@ -733,7 +665,7 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        -80,
+        240,
         528
       ],
       "id": "9b91ec2c-b71e-4c5b-95a9-5fcc65558e39",
@@ -1133,6 +1065,72 @@
           "name": "Google Sheets account"
         }
       }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=분석 내용 총 한 줄로 간단하게 정리\n\n{{ $json['주요 긍정 피드백'] }}"
+            }
+          ]
+        },
+        "jsonOutput": "={{ false }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1,
+      "position": [
+        -96,
+        528
+      ],
+      "id": "db8de3d3-9443-4d52-ba72-aa88547391b1",
+      "name": "Message a model2",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "u0KNzK2HMRfa50nM",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        -464,
+        528
+      ],
+      "id": "6f2e0abd-9abc-4746-9ea8-ee6661808ade",
+      "name": "Extract from File1"
+    },
+    {
+      "parameters": {
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            {
+              "fieldToAggregate": "주요 긍정 피드백"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        -256,
+        528
+      ],
+      "id": "faf6c840-7b0f-4512-b743-c91705669e7b",
+      "name": "Aggregate1"
     }
   ],
   "pinData": {},
@@ -1301,29 +1299,7 @@
       "main": [
         [
           {
-            "node": "Create spreadsheet",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Create spreadsheet": {
-      "main": [
-        [
-          {
-            "node": "Edit Fields",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Edit Fields": {
-      "main": [
-        [
-          {
-            "node": "Append or update row in sheet1",
+            "node": "Extract from File1",
             "type": "main",
             "index": 0
           }
@@ -1450,13 +1426,46 @@
           }
         ]
       ]
+    },
+    "Extract from File1": {
+      "main": [
+        [
+          {
+            "node": "Aggregate1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate1": {
+      "main": [
+        [
+          {
+            "node": "Message a model2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model2": {
+      "main": [
+        [
+          {
+            "node": "Append or update row in sheet1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": false,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "0d0d456d-f572-4db9-9678-e98d9cd23847",
+  "versionId": "f478deeb-d29f-47a5-a6fb-4de2c8407d36",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "2f85a62d00aef46770cec5e29f788e0259909a3a8348903cf02176033958dca2"
