@@ -1,0 +1,402 @@
+{
+  "name": "16_Manage_EmailBoxes",
+  "nodes": [
+    {
+      "parameters": {
+        "operation": "getAll",
+        "limit": 30,
+        "filters": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        320,
+        384
+      ],
+      "id": "edd50ec1-edff-4e7e-98f0-ce5ff254d8ec",
+      "name": "Get many messages",
+      "webhookId": "f71f2454-fda5-487e-9086-366b7c509aa8",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "VQuvrjwRg1poXwhx",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "inputText": "={{ $json.snippet }}",
+        "categories": {
+          "categories": [
+            {
+              "category": "Social",
+              "description": "소셜 미디어, 뉴스레터, 마케팅 메일 등 정보성 메시지"
+            },
+            {
+              "category": "Personal",
+              "description": "개인적인 연락, 친구/가족 관련 메일"
+            },
+            {
+              "category": "Misc",
+              "description": "기타 분류되지 않은 모든 메일"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.textClassifier",
+      "typeVersion": 1.1,
+      "position": [
+        512,
+        368
+      ],
+      "id": "a8712457-e908-4ff1-aa7c-68a6e0a5a1ee",
+      "name": "Text Classifier"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        448,
+        592
+      ],
+      "id": "a363fad4-dcc7-4cdf-aa51-af9580e6da23",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "4kHSwKB4MwC7n1mT",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "filters": {}
+      },
+      "type": "n8n-nodes-base.gmailTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        96,
+        384
+      ],
+      "id": "57673b38-de46-4c7d-b0f4-42d612e9d52d",
+      "name": "Gmail Trigger",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "VQuvrjwRg1poXwhx",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "reply",
+        "messageId": "={{ $('Text Classifier').item.json.id }}",
+        "message": "=테스트]  {{ $json.content.parts[0].text }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1264,
+        208
+      ],
+      "id": "9c2e0474-a624-4e58-a17f-77a6b2c8b62f",
+      "name": "Reply to a message",
+      "webhookId": "bc1aaa16-0e22-4694-8ed8-81d5bb59ccd8",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "VQuvrjwRg1poXwhx",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "messageId": "={{ $json.id }}"
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1504,
+        208
+      ],
+      "id": "d8ca1f6e-65fa-4c64-b551-dbe800422bb2",
+      "name": "Delete a message",
+      "webhookId": "0515e546-393e-4d43-8a22-dd464d37f523",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "VQuvrjwRg1poXwhx",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "addLabels",
+        "messageId": "={{ $json.id }}",
+        "labelIds": [
+          "Label_8399670572531080500"
+        ]
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        880,
+        592
+      ],
+      "id": "64684b72-4d5c-4858-9b69-759ec0dd498f",
+      "name": "Add label to message",
+      "webhookId": "916b50b6-f5e3-4afb-94e4-3ad9f06e90ed",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "VQuvrjwRg1poXwhx",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "removeLabels",
+        "messageId": "={{ $('Text Classifier').item.json.id }}",
+        "labelIds": [
+          "Label_8399670572531080500"
+        ]
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1072,
+        592
+      ],
+      "id": "ab10ffc5-055d-455f-9728-8a991aac22a8",
+      "name": "Remove label from message",
+      "webhookId": "eefb4032-3eb1-4c33-974a-9937bc5d450c",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "VQuvrjwRg1poXwhx",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=다음의 내용에 대한 답변을 50글자 내로 짧게 작성\n\n[내용]\n{{ $json.snippet }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1,
+      "position": [
+        896,
+        208
+      ],
+      "id": "afc345c2-4567-46b5-8243-1ae63bafdb63",
+      "name": "Message a model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "4kHSwKB4MwC7n1mT",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "reply",
+        "messageId": "={{ $('Text Classifier').item.json.id }}",
+        "message": "=테스트]  {{ $json.content.parts[0].text }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1264,
+        384
+      ],
+      "id": "2ca35d64-b150-4778-8cf2-962641cffddf",
+      "name": "Reply to a message1",
+      "webhookId": "bc1aaa16-0e22-4694-8ed8-81d5bb59ccd8",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "VQuvrjwRg1poXwhx",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=다음의 내용에 대한 답변을 50글자 내로 짧게 작성\n\n[내용]\n{{ $json.snippet }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1,
+      "position": [
+        896,
+        384
+      ],
+      "id": "82b9f4c1-a45d-42a8-a4f5-c759f57bdb9b",
+      "name": "Message a model1",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "4kHSwKB4MwC7n1mT",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Get many messages": {
+      "main": [
+        [
+          {
+            "node": "Text Classifier",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Text Classifier",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gmail Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get many messages",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Text Classifier": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Message a model1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Add label to message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reply to a message": {
+      "main": [
+        [
+          {
+            "node": "Delete a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add label to message": {
+      "main": [
+        [
+          {
+            "node": "Remove label from message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "Reply to a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reply to a message1": {
+      "main": [
+        []
+      ]
+    },
+    "Message a model1": {
+      "main": [
+        [
+          {
+            "node": "Reply to a message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "b196da35-58c3-411d-b3ca-aa4b2e04f50e",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e032e8146f61214a70abd797fbb668d6013be746b3ac3f498c12c56eccfc3624"
+  },
+  "id": "FfMOaqbDAo9VLIhl",
+  "tags": []
+}
