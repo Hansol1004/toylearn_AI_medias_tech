@@ -1,0 +1,181 @@
+{
+  "name": "16_multimedia_images",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "나노 바나나를 이용해 이미지 변환",
+        "formDescription": "나노 바나나를 이용해 이미지 변환",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Input_Image",
+              "fieldType": "file",
+              "multipleFiles": false
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.3,
+      "position": [
+        -432,
+        32
+      ],
+      "id": "5aadfa59-0e5a-4729-86b6-8330671c0092",
+      "name": "On form submission",
+      "webhookId": "ab61b4b2-99b3-498b-8609-3e8e54c9a782"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image:generateContent",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "x-goog-api-key",
+              "value": "AIzaSyAgEF4d7hR_yJK4Q8g39FbUTdNfCAl1Q0o"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n    \"contents\": [{\n        \"parts\": [\n            {\"text\": \"이미지 속의 햄스터들이 바나나를 번쩍 들어올린 모습으로 바꿔줘\"},\n            {\n                \"inline_data\": {\n                    \"mime_type\": \"{{ $('On form submission').item.json.Input_Image.mimetype }}\",\n                    \"data\": \"{{ $json.data }}\"\n                }\n            }\n        ]\n    }]\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        16,
+        32
+      ],
+      "id": "b86a6661-6517-4ea1-acf6-a39c16966e62",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "operation": "toBinary",
+        "sourceProperty": "candidates[0].content.parts[1].inlineData.data",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        240,
+        32
+      ],
+      "id": "5834735d-f497-411d-b1cc-725e994fa0df",
+      "name": "Convert to File"
+    },
+    {
+      "parameters": {
+        "operation": "binaryToPropery",
+        "binaryPropertyName": "Input_Image",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        -224,
+        32
+      ],
+      "id": "3b99d39c-fa14-440a-b2c6-21b69a4a5ea1",
+      "name": "Extract from File"
+    },
+    {
+      "parameters": {
+        "name": "16_multimedia_images",
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "1Gww7arcxNOMIC2uFyhusrVnbddx4wk4z",
+          "mode": "list",
+          "cachedResultName": "images",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/1Gww7arcxNOMIC2uFyhusrVnbddx4wk4z"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        480,
+        32
+      ],
+      "id": "29089785-40e0-4c24-8bee-995f215c4b62",
+      "name": "Upload file",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "tyouykrVt81xm5FA",
+          "name": "Google Drive account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to File": {
+      "main": [
+        [
+          {
+            "node": "Upload file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "ca2e1386-d102-4ea0-b8ad-418effc013a7",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "b74b7125cc0d8c1aab64517b4f5f232d2883dcec2283a83836fa5dfd0e990b85"
+  },
+  "id": "qtC7oWqAOnBKdJj5",
+  "tags": []
+}
